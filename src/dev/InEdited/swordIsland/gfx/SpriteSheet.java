@@ -1,4 +1,4 @@
-package gfx;
+package dev.InEdited.swordIsland.gfx;
 
 import java.awt.image.BufferedImage;
 

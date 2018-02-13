@@ -1,7 +1,12 @@
 package dev.InEdited.swordIsland;
 
-import display.Display;
-import gfx.ImageLoader;
+import dev.InEdited.swordIsland.display.Display;
+import dev.InEdited.swordIsland.gfx.Assets;
+import dev.InEdited.swordIsland.gfx.ImageLoader;
+import dev.InEdited.swordIsland.input.KeyManager;
+import dev.InEdited.swordIsland.states.GameState;
+import dev.InEdited.swordIsland.states.MenuState;
+import dev.InEdited.swordIsland.states.State;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -13,6 +18,12 @@ public class Game implements Runnable{
     private BufferStrategy bufferStrategy;
     private Graphics graphics;
     private BufferedImage testImage;
+    //input stuff
+    private KeyManager keyManager;
+    //states
+    private State gameState;
+    private State menuState;
+
 
     private boolean gameRunning = false;
     public int width,height;
@@ -22,13 +33,33 @@ public class Game implements Runnable{
         this.height = height;
         this.width = width;
         this.title = title;
+        //input thing
+        keyManager = new KeyManager();
 
     }
-
     //Initialization
     private void init(){
+        //Assets class crops shit and gets it done
+        Assets.init();
+        //initializing display
         display = new Display(title,width,height);
+        display.getWindow()
+                .addKeyListener(keyManager);
+
+        //initializing the states
+        gameState = new GameState(this);
+        menuState = new MenuState(this);
+        State.setCurrentState(gameState);
     }
+
+    private void update(){
+        //keymanager input update
+        keyManager.update();
+        //making sure the current state updates
+        if(State.getCurrentState() !=null)
+            State.getCurrentState().update();
+    }
+
 
     //The game loop itself
     public void run(){
@@ -68,7 +99,7 @@ public class Game implements Runnable{
         stop();
     }
 
-    private void update(){}
+
     //where stuff is drawn to the screen
     private void render(){
         bufferStrategy = display.getCanvas().getBufferStrategy();
@@ -76,9 +107,16 @@ public class Game implements Runnable{
             display.getCanvas().createBufferStrategy(2);
             return;
         }
+
+
         graphics = bufferStrategy.getDrawGraphics();
         //Clear screen before drawing
         graphics.clearRect(0,0,width,height);
+
+        //making sure the current state always renders and pass a graphics object
+        if(State.getCurrentState() !=null)
+            State.getCurrentState().render(graphics);
+
         //Start drawing shit here
         //Stop drawing shit here
         bufferStrategy.show();
@@ -107,6 +145,11 @@ public class Game implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    //keymanager getter for the player
+    public KeyManager getKeyManager(){
+        return keyManager;
     }
 
 }

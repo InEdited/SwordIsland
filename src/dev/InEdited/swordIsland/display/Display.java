@@ -1,4 +1,4 @@
-package display;
+package dev.InEdited.swordIsland.display;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +33,7 @@ public class Display {
         canvas.setPreferredSize(new Dimension(width,height));
         canvas.setMinimumSize(new Dimension(width,height));
         canvas.setMaximumSize(new Dimension(width,height));
+        canvas.setFocusable(false);
 
         //putting the canvas in the window and set it up
         window.add(canvas);
@@ -43,6 +44,10 @@ public class Display {
 
     public Canvas getCanvas(){
         return canvas;
+    }
+
+    public JFrame getWindow(){
+        return window;
     }
 
 }
