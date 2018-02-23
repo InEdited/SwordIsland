@@ -1,0 +1,14 @@
+#One of two tracks
+
+## Track one
+The game can take place on a small island to have a battleground last standing style game
+* requires a lot of networking and creating a server
+* less work on the world map and no NPCs
+
+## Track two
+The game can take the route of a small RPG game
+* Requires way much more work on the assets and map
+* more work on creating NPCs
+
+
+#

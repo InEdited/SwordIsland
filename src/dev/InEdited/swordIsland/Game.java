@@ -2,6 +2,7 @@ package dev.InEdited.swordIsland;
 
 import dev.InEdited.swordIsland.display.Display;
 import dev.InEdited.swordIsland.gfx.Assets;
+import dev.InEdited.swordIsland.gfx.Camera;
 import dev.InEdited.swordIsland.gfx.ImageLoader;
 import dev.InEdited.swordIsland.input.KeyManager;
 import dev.InEdited.swordIsland.states.GameState;
@@ -18,15 +19,20 @@ public class Game implements Runnable{
     private BufferStrategy bufferStrategy;
     private Graphics graphics;
     private BufferedImage testImage;
+
     //input stuff
     private KeyManager keyManager;
+
+    //camera stuff
+    private Camera camera;
+
     //states
     private State gameState;
     private State menuState;
 
 
     private boolean gameRunning = false;
-    public int width,height;
+    private int width,height;
     public String title;
 
     public Game(String title,int width,int height){
@@ -41,6 +47,9 @@ public class Game implements Runnable{
     private void init(){
         //Assets class crops shit and gets it done
         Assets.init();
+        //initiializing camera
+        camera = new Camera(this,0,0);
+
         //initializing display
         display = new Display(title,width,height);
         display.getWindow()
@@ -99,7 +108,6 @@ public class Game implements Runnable{
         stop();
     }
 
-
     //where stuff is drawn to the screen
     private void render(){
         bufferStrategy = display.getCanvas().getBufferStrategy();
@@ -107,7 +115,6 @@ public class Game implements Runnable{
             display.getCanvas().createBufferStrategy(2);
             return;
         }
-
 
         graphics = bufferStrategy.getDrawGraphics();
         //Clear screen before drawing
@@ -122,7 +129,6 @@ public class Game implements Runnable{
         bufferStrategy.show();
         graphics.dispose();
     }
-
 
     //what happens when the thread starts
     public synchronized void start(){
@@ -152,4 +158,15 @@ public class Game implements Runnable{
         return keyManager;
     }
 
+    public Camera getCamera() {
+        return camera;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }

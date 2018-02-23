@@ -1,5 +1,6 @@
 package dev.InEdited.swordIsland.entities.creatures;
 
+import dev.InEdited.swordIsland.Game;
 import dev.InEdited.swordIsland.entities.Entity;
 
 import java.awt.*;
@@ -17,8 +18,8 @@ public abstract class Creature extends Entity{
 
 
     //init and passing super x,y
-    public Creature(float x, float y, int width,int height) {
-        super(x, y,width,height);
+    public Creature(Game game,float x, float y, int width, int height) {
+        super(game,x, y,width,height);
         this.health = DEFAULT_HEALTH;
         this.speed = DEFAULT_SPEED;
     }
