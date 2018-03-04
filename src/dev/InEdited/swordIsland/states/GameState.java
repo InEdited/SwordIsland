@@ -1,6 +1,7 @@
 package dev.InEdited.swordIsland.states;
 
 import dev.InEdited.swordIsland.Game;
+import dev.InEdited.swordIsland.Handler;
 import dev.InEdited.swordIsland.entities.creatures.Player;
 import dev.InEdited.swordIsland.maps.Map;
 import dev.InEdited.swordIsland.tiles.Tile;
@@ -13,11 +14,13 @@ public class GameState extends State {
     //private Player player2;
     private Map map;
 
-    public GameState(Game game){
-        super(game);
-        player = new Player(game,100, 100,10);
+    public GameState(Handler handler){
+        super(handler);
+        map = new Map(handler,"./res/Maps/MainMap.map");
+        handler.setMap(this.map);
+        player = new Player(handler,100, 100,10);
         //player2 = new Player(game, 200,200,10);
-        map = new Map(game,"./res/Maps/MainMap.map");
+
 
     }
 

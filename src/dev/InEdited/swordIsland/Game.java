@@ -26,6 +26,9 @@ public class Game implements Runnable{
     //camera stuff
     private Camera camera;
 
+    //the handler boiii
+    private Handler handler;
+
     //states
     private State gameState;
     private State menuState;
@@ -47,8 +50,11 @@ public class Game implements Runnable{
     private void init(){
         //Assets class crops shit and gets it done
         Assets.init();
+        //initializing handler boi
+        handler = new Handler(this);
         //initiializing camera
-        camera = new Camera(this,0,0);
+        camera = new Camera(handler,0,0);
+
 
         //initializing display
         display = new Display(title,width,height);
@@ -56,8 +62,8 @@ public class Game implements Runnable{
                 .addKeyListener(keyManager);
 
         //initializing the states
-        gameState = new GameState(this);
-        menuState = new MenuState(this);
+        gameState = new GameState(handler);
+        menuState = new MenuState(handler);
         State.setCurrentState(gameState);
     }
 

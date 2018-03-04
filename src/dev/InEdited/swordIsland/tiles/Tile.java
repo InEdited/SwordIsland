@@ -28,7 +28,7 @@ public class Tile {
     }
 
     public boolean hasHitBox(){
-        return hasHitBox;
+        return this.hasHitBox;
     }
 
     public void update(){
