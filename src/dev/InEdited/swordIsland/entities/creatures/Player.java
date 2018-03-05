@@ -1,6 +1,5 @@
 package dev.InEdited.swordIsland.entities.creatures;
 
-import dev.InEdited.swordIsland.Game;
 import dev.InEdited.swordIsland.Handler;
 import dev.InEdited.swordIsland.gfx.Animation;
 import dev.InEdited.swordIsland.gfx.Assets;

@@ -1,8 +1,10 @@
 package dev.InEdited.swordIsland.maps;
 
-import dev.InEdited.swordIsland.Game;
 import dev.InEdited.swordIsland.Handler;
 import dev.InEdited.swordIsland.Utils.Utils;
+import dev.InEdited.swordIsland.entities.EntityManager;
+import dev.InEdited.swordIsland.entities.creatures.Player;
+import dev.InEdited.swordIsland.entities.statics.Tree;
 import dev.InEdited.swordIsland.tiles.Tile;
 
 import java.awt.*;
@@ -15,14 +17,33 @@ public class Map{
     private int[][] tiles;
     private int spawnPositionX, spawnPositionY;
 
+    //Entities
+    private EntityManager entitymanager;
+
     public Map(Handler handler, String path){
         this.handler = handler;
+        /*
+        =======================================
+                    Entities
+        =======================================
+         */
+        entitymanager = new EntityManager(handler,new Player(handler,100,100,100));
+        entitymanager.addEntity(new Tree(handler,100,256));
+
+
+        //Loading the map from file
         loadMap(path);
+
+        //Player (for now till I spawn others and implement network)
+        spawnPositionX = 100;
+        spawnPositionY = 100;
+        entitymanager.getPlayer().setX(spawnPositionX);
+        entitymanager.getPlayer().setY(spawnPositionY);
     }
 
     public void update(){
         handler.getCamera().move(handler.getCamera().getxOffset(),handler.getCamera().getyOffset());
-
+        entitymanager.update();
 
     }
 
@@ -46,18 +67,21 @@ public class Map{
 
             }
         }
+
+        //Entities
+        entitymanager.render(graphics);
     }
 
 
     public Tile getTile(int x , int y){
         if(x < 0 || y < 0 || x >= width || y>= height)
-            return Tile.grassTile;
+            return Tile.nothing;
         //return the tile according to the id of the tile stored at (x,y) in the multi dimensional array
         Tile tile = Tile.tiles[this.tiles[x][y]];
 
-        //if the tile you requested is not found in the tile array return default tile (grass tilie here)
+        //if the tile you requested is not found in the tile array return default tile (nothing here)
         if(tile == null)
-            return Tile.grassTile;
+            return Tile.nothing;
         return tile;
     }
 
@@ -90,5 +114,9 @@ public class Map{
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public EntityManager getEntitymanager() {
+        return entitymanager;
     }
 }

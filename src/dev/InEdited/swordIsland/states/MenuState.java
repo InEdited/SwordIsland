@@ -1,6 +1,5 @@
 package dev.InEdited.swordIsland.states;
 
-import dev.InEdited.swordIsland.Game;
 import dev.InEdited.swordIsland.Handler;
 
 import java.awt.*;

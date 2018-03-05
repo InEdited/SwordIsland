@@ -3,7 +3,6 @@ package dev.InEdited.swordIsland;
 import dev.InEdited.swordIsland.display.Display;
 import dev.InEdited.swordIsland.gfx.Assets;
 import dev.InEdited.swordIsland.gfx.Camera;
-import dev.InEdited.swordIsland.gfx.ImageLoader;
 import dev.InEdited.swordIsland.input.KeyManager;
 import dev.InEdited.swordIsland.states.GameState;
 import dev.InEdited.swordIsland.states.MenuState;

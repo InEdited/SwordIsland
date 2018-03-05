@@ -4,8 +4,9 @@ import java.awt.image.BufferedImage;
 
 
 public class Assets {
-    public static BufferedImage grassTile,dirtTile;
-    public static BufferedImage[] characterDown , characterUp , characterLeft , characterRight;
+    public static BufferedImage grassTile,dirtTile,nothing;
+    public static BufferedImage[] characterDown , characterUp , characterLeft , characterRight,
+            trees;
     private static int x,y;
     private static final int width = 32, height = 32;
     private static final int charWidth = 48, charHeight = 48;
@@ -55,5 +56,17 @@ public class Assets {
         //TILES
         grassTile = sheetProps.crop(height*16,width*9,width,height);
         dirtTile = sheetProps.crop(height*50,width*3,width,height);
+        nothing = sheetProps.crop(0,0,width,height);
+
+        /*
+        ===================================================
+                        Entities and shit
+        ===================================================
+         */
+
+        trees = new BufferedImage[10];
+        for(int i=0;i<8;i++) {
+            trees[i] = sheetProps.crop(width*(14+i) ,height *(13), width, height);
+        }
     }
 }

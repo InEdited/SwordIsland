@@ -1,6 +1,5 @@
 package dev.InEdited.swordIsland.gfx;
 
-import dev.InEdited.swordIsland.Game;
 import dev.InEdited.swordIsland.Handler;
 import dev.InEdited.swordIsland.entities.Entity;
 import dev.InEdited.swordIsland.tiles.Tile;

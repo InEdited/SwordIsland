@@ -1,5 +1,7 @@
 package dev.InEdited.swordIsland.tiles;
 
+import dev.InEdited.swordIsland.entities.statics.Tree;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -8,6 +10,7 @@ public class Tile {
     //static shit
 
     public static Tile[] tiles = new Tile[256];
+    public static Tile nothing = new Nothing(255);
     public static Tile grassTile = new GrassTile(0);
     public static Tile dirtTile = new DirtTile(1);
 
