@@ -4,6 +4,7 @@ import dev.InEdited.swordIsland.display.Display;
 import dev.InEdited.swordIsland.gfx.Assets;
 import dev.InEdited.swordIsland.gfx.Camera;
 import dev.InEdited.swordIsland.input.KeyManager;
+import dev.InEdited.swordIsland.input.MouseManager;
 import dev.InEdited.swordIsland.states.GameState;
 import dev.InEdited.swordIsland.states.MenuState;
 import dev.InEdited.swordIsland.states.State;
@@ -21,6 +22,7 @@ public class Game implements Runnable{
 
     //input stuff
     private KeyManager keyManager;
+    private MouseManager mousemanager;
 
     //camera stuff
     private Camera camera;
@@ -29,8 +31,8 @@ public class Game implements Runnable{
     private Handler handler;
 
     //states
-    private State gameState;
-    private State menuState;
+    public State gameState;
+    public State menuState;
 
 
     private boolean gameRunning = false;
@@ -43,6 +45,7 @@ public class Game implements Runnable{
         this.title = title;
         //input thing
         keyManager = new KeyManager();
+        mousemanager = new MouseManager();
 
     }
     //Initialization
@@ -54,16 +57,22 @@ public class Game implements Runnable{
         //initiializing camera
         camera = new Camera(handler,0,0);
 
-
         //initializing display
         display = new Display(title,width,height);
+
+        //input stuff for the canvas and window
         display.getWindow()
                 .addKeyListener(keyManager);
+        display.getWindow().addMouseListener(mousemanager);
+        display.getCanvas().addMouseListener(mousemanager);
+        display.getWindow().addMouseMotionListener(mousemanager);
+        display.getCanvas().addMouseMotionListener(mousemanager);
+
 
         //initializing the states
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
-        State.setCurrentState(gameState);
+        State.setCurrentState(menuState);
     }
 
     private void update(){
@@ -161,6 +170,10 @@ public class Game implements Runnable{
     //keymanager getter for the player
     public KeyManager getKeyManager(){
         return keyManager;
+    }
+
+    public MouseManager getMousemanager() {
+        return mousemanager;
     }
 
     public Camera getCamera() {

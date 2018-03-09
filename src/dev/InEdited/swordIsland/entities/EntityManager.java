@@ -5,12 +5,23 @@ import dev.InEdited.swordIsland.entities.creatures.Player;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class EntityManager {
 
     private Handler handler;
     private Player player;
     private ArrayList<Entity> entities;
+
+    //comparing y coordinates in entities to see which to render above which
+    private Comparator<Entity> renderSorting = new Comparator<Entity>() {
+        @Override
+        public int compare(Entity o1, Entity o2) {
+            if(o1.getY() + o1.getHeight() < o2.getY() + o1.getWidth())
+                return -1;
+            return 1;
+        }
+    };
 
     public EntityManager(Handler handler, Player player){
         this.handler = handler;
@@ -24,6 +35,7 @@ public class EntityManager {
             Entity e = entities.get(i);
             e.update();
         }
+        entities.sort(renderSorting);
     }
 
     public void render(Graphics graphics){

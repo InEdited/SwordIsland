@@ -2,6 +2,7 @@ package dev.InEdited.swordIsland;
 
 import dev.InEdited.swordIsland.gfx.Camera;
 import dev.InEdited.swordIsland.input.KeyManager;
+import dev.InEdited.swordIsland.input.MouseManager;
 import dev.InEdited.swordIsland.maps.Map;
 
 //This class handles stuff and passes stuff from game/map altogether to make stuff a lil bit less messy
@@ -39,4 +40,5 @@ public class Handler {
     public void setMap(Map map) {
         this.map = map;
     }
+    public MouseManager getMouseManager(){return game.getMousemanager();}
 }

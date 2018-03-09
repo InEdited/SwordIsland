@@ -28,7 +28,10 @@ public class Map{
         =======================================
          */
         entitymanager = new EntityManager(handler,new Player(handler,100,100,100));
-        entitymanager.addEntity(new Tree(handler,100,256));
+        entitymanager.addEntity(new Tree(handler,128,256));
+        entitymanager.addEntity(new Tree(handler,256,256));
+        entitymanager.addEntity(new Tree(handler,128,512));
+        entitymanager.addEntity(new Tree(handler,256,512));
 
 
         //Loading the map from file

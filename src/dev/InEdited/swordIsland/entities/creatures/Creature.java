@@ -27,8 +27,10 @@ public abstract class Creature extends Entity{
 
     //the movement function of the creature
     public void move(){
-        moveX();
-        moveY();
+        if(!checkIfCollidedWithEntity(moveX ,0f))
+            moveX();
+        if(!checkIfCollidedWithEntity(0f , moveY))
+            moveY();
 
     }
 

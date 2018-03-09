@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 public class Assets {
     public static BufferedImage grassTile,dirtTile,nothing;
     public static BufferedImage[] characterDown , characterUp , characterLeft , characterRight,
-            trees;
+            trees,button1;
     private static int x,y;
     private static final int width = 32, height = 32;
     private static final int charWidth = 48, charHeight = 48;
@@ -68,5 +68,16 @@ public class Assets {
         for(int i=0;i<8;i++) {
             trees[i] = sheetProps.crop(width*(14+i) ,height *(13), width, height);
         }
+
+
+
+        /*
+        ===========================================
+                        Buttons
+        ===========================================
+         */
+        button1 = new BufferedImage[2];
+        button1[0] = sheetProps.crop(width*34,height*10,width,height);
+        button1[1] = sheetProps.crop(width*35,height*10,width,height);
     }
 }
