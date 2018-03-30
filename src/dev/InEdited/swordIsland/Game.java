@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+
 public class Game implements Runnable{
     private Display display;
     private Thread thread;
