@@ -26,15 +26,15 @@ The resources found in the res directory are still not the final ones they are f
 * A working camera that follows the player and has limits
 * pixel perfect collision
 * collision with entities
+* Menu state
+* A melee combat system
+* Mouse + keyboard combat instead of keyboard only one
 
 ## To be done
-* A melee combat system
 * Items droppings
-* Menu state
 * Simple ingame UI
 * Items pickup
 * Inventory system
-* Mouse + keyboard combat instead of keyboard only one
 * Network system to play multiplayer
 * Long range combat system
 * Audio files and background music
