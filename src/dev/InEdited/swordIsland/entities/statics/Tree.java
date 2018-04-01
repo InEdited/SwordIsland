@@ -14,6 +14,7 @@ public class Tree extends StaticEntity {
 
     public Tree(Handler handler,float x , float y){
         super(handler,x,y, Tile.TILEWIDTH,Tile.TILEHEIGHT);
+        this.health = 50;
 
         //I use this method to diverse the trees , everytime this class is instantiated a random tree is given instead of the same one
         tree = Assets.trees[Utils.randInt(0,8)];
@@ -23,6 +24,7 @@ public class Tree extends StaticEntity {
         bounds.y=0;
         bounds.width=64;
         bounds.height=64;
+
     }
 
 

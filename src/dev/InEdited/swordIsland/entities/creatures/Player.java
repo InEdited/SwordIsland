@@ -1,9 +1,10 @@
 package dev.InEdited.swordIsland.entities.creatures;
 
 import dev.InEdited.swordIsland.Handler;
+import dev.InEdited.swordIsland.entities.Entity;
 import dev.InEdited.swordIsland.gfx.Animation;
 import dev.InEdited.swordIsland.gfx.Assets;
-import dev.InEdited.swordIsland.input.MouseManager;
+import dev.InEdited.swordIsland.states.State;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,12 +14,15 @@ import static java.lang.Math.abs;
 public class Player extends Creature {
 
     //a bunch of variables that hold the stats of the player for now (to be implemented later)
-    private int attack,
+    private int attackDamage = 5,
                 armor,
-                inventorySpace;
+                inventorySpace,
+                attackRange = 20;
 
-    private float attackSpeed,
-                  attackRange;
+    private float attackSpeed = 3;
+
+    private long  attackTimer,
+            lastAttackTimer;
 
     //Animations stuff
     private Animation animDown,animUp,animLeft,animRight,animAttack;
@@ -55,6 +59,69 @@ public class Player extends Creature {
         getInput();
         move();
         handler.getCamera().centerOnSomething(this);
+
+        //Attacking
+        checkAttacks();
+    }
+
+    private void checkAttacks(){
+        //timing the attack according to attack speed
+        int attackCooldown = (int) (1000/attackSpeed);
+        attackTimer += System.currentTimeMillis() - lastAttackTimer;
+        lastAttackTimer = System.currentTimeMillis();
+        if(attackTimer < attackCooldown)
+            return;
+
+
+
+        int mouseQuadrant = cursoreQuadrant();
+        Rectangle playerBounds = getBounds(0,0);
+        Rectangle attackRectangle = new Rectangle();
+        attackRectangle.height = attackRange;
+        attackRectangle.width = attackRange;
+
+        //Attacking right
+        if((mouseQuadrant==1||mouseQuadrant==8)&&handler.getMouseManager().isLeftButtonPressed()){
+            attackRectangle.y = playerBounds.y - attackRange;
+            attackRectangle.x = playerBounds.y + playerBounds.height / 2 - attackRange / 2;
+            System.out.println("Attacked right");
+
+        }
+
+        //Attacking up
+        else if((mouseQuadrant==6||mouseQuadrant==7)&&handler.getMouseManager().isLeftButtonPressed()){
+            attackRectangle.x = playerBounds.x + playerBounds.width / 2 - attackRange / 2;
+            attackRectangle.y = playerBounds.y - attackRange;
+            System.out.println("Attacked up");
+        }
+
+        //Attacking left
+        else if((mouseQuadrant==4||mouseQuadrant==5)&&handler.getMouseManager().isLeftButtonPressed()){
+            attackRectangle.x = playerBounds.x - attackRange;
+            attackRectangle.y = playerBounds.y + playerBounds.height / 2 - attackRange / 2;
+            System.out.println("Attacked left");
+
+        }
+
+        //Attacking down
+        else if((mouseQuadrant==3||mouseQuadrant==2)&&handler.getMouseManager().isLeftButtonPressed()){
+            attackRectangle.x = playerBounds.x + playerBounds.width / 2 - attackRange / 2;
+            attackRectangle.y = playerBounds.y + playerBounds.height;
+            System.out.println("Attacked down");
+
+        }else
+            return;
+
+        attackTimer =0;
+
+        for(Entity entity : handler.getMap().getEntitymanager().getEntities()){
+            if(entity.equals(this))
+                continue;
+            if(entity.getBounds(0,0).intersects(attackRectangle)){
+                entity.hurt(attackDamage);
+                return;
+            }
+        }
     }
 
     //the function that gets input from the users for the update to send the input to the move function from the creature class
@@ -74,6 +141,10 @@ public class Player extends Creature {
             moveX+=speed;
     }
 
+    @Override
+    public void die(){
+        State.setCurrentState(handler.getGame().menuState);
+    }
     @Override
     public void render(Graphics graphics) {
         //rendering the player and putting offset for the camera to follow the player
@@ -150,12 +221,12 @@ public class Player extends Creature {
     }
 
     //getters and setters
-    public int getAttack() {
-        return attack;
+    public int getAttackDamage() {
+        return attackDamage;
     }
 
-    public void setAttack(int attack) {
-        this.attack = attack;
+    public void setAttackDamage(int attackDamage) {
+        this.attackDamage = attackDamage;
     }
 
     public int getArmor() {
@@ -186,7 +257,7 @@ public class Player extends Creature {
         return attackRange;
     }
 
-    public void setAttackRange(float attackRange) {
+    public void setAttackRange(int attackRange) {
         this.attackRange = attackRange;
     }
 

@@ -21,4 +21,9 @@ public class StaticEntity extends Entity {
     public void render(Graphics graphics) {
 
     }
+
+    @Override
+    public void die(){
+
+    }
 }

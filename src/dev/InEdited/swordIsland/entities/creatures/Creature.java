@@ -8,12 +8,9 @@ import java.awt.*;
 
 public abstract class Creature extends Entity{
 
-    public static final int DEFAULT_HEALTH =10;
     public static final float DEFAULT_SPEED = 3.0f;
     public static final int DEFAULT_WIDTH = 64,
                             DEFAULT_HEIGHT = 64;
-
-    protected int health;
     protected float speed;
     protected float moveX,moveY;
 
@@ -21,7 +18,6 @@ public abstract class Creature extends Entity{
     //init and passing super x,y
     public Creature(Handler handler, float x, float y, int width, int height) {
         super(handler,x, y,width,height);
-        this.health = DEFAULT_HEALTH;
         this.speed = DEFAULT_SPEED;
     }
 
